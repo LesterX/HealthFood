@@ -30,19 +30,21 @@
         android:id="@+id/foodProgressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="387dp"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="248dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="158dp"
         android:max="@android:integer/status_bar_notification_info_maxnum"
         android:progress="@android:integer/config_mediumAnimTime"
         android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/button_login_page"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avatarImageView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/workoutProgressBar"
@@ -115,5 +117,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/avatarImageView"
         tools:text="Food Intake" />
+
+    <Button
+        android:id="@+id/button_login_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:onClick="loginActivity"
+        android:text="Login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/foodProgressBar" />
 
 </android.support.constraint.ConstraintLayout>
