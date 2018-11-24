@@ -72,7 +72,15 @@ public class Profilestats extends AppCompatActivity {
             }
         });
         text_name = findViewById(R.id.text_name);
-
+        //Add workout Button
+        FloatingActionButton addBtn= (FloatingActionButton) findViewById(R.id.addWorkoutButton);
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent switchtoworkout = new Intent(getApplicationContext(),WorkoutTab.class);
+                startActivity(switchtoworkout);
+            }
+        });
         //Facebook Login
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
