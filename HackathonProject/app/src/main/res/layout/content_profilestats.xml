@@ -28,19 +28,21 @@
         android:id="@+id/foodProgressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="387dp"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="248dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="247dp"
         android:max="@android:integer/status_bar_notification_info_maxnum"
         android:progress="@android:integer/config_mediumAnimTime"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avatarImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/text_name" />
 
     <ProgressBar
         android:id="@+id/workoutProgressBar"
@@ -69,13 +71,13 @@
         android:layout_marginLeft="32dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
+        android:focusable="true"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/workoutProgressBar"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:focusable="true" />
+        app:srcCompat="@android:drawable/ic_input_add"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addFoodButton"
@@ -86,14 +88,14 @@
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
         android:clickable="true"
+        android:focusable="true"
         android:visibility="visible"
         app:backgroundTint="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/foodProgressBar"
-        app:srcCompat="@android:drawable/ic_menu_camera"
-        android:focusable="true" />
+        app:srcCompat="@android:drawable/ic_menu_camera"/>
 
     <TextView
         android:id="@+id/foodTextView"
@@ -115,5 +117,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/avatarImageView"
         tools:text="Food Intake" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/foodProgressBar" />
+
+    <TextView
+        android:id="@+id/text_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginBottom="200dp"
+        android:text="TextView"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/foodProgressBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
