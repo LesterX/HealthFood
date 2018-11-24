@@ -7,23 +7,27 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
+import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.CallbackManager;
 
 
 public class Profilestats extends AppCompatActivity {
 
     private AnimationDrawable animation;
+    private CallbackManager callbackManager;
+    private Button login_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,22 +52,24 @@ public class Profilestats extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
 
-        CallbackManager callbackManager = CallbackManager.Factory.create();
+        login_button = findViewById(R.id.login_button);
+        callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        // App code
+                        Log.d("FacebookLogin","Logged In Successfully");
                     }
 
                     @Override
                     public void onCancel() {
-                        // App code
+                        Log.d("FacebookLogin","Logged In Cancelled");
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
-                        // App code
+
+                        Log.d("FacebookLogin",exception.toString());
                     }
                 });
     }
@@ -96,9 +102,9 @@ public class Profilestats extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Onclick function for login page
-    public void loginActivity(View v) {
-        Intent intent = new Intent(Profilestats.this,Login.class);
-        startActivity(intent);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
