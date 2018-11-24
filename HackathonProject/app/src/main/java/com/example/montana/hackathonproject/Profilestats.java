@@ -3,6 +3,7 @@ package com.example.montana.hackathonproject;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -28,11 +29,11 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 public class Profilestats extends AppCompatActivity {
 
@@ -122,8 +123,30 @@ public class Profilestats extends AppCompatActivity {
                         Log.d("FacebookLogin",exception.toString());
                     }
                 });
+        new testTask().execute(".");
+    }
 
+    //Testing task
+    private class testTask extends AsyncTask<String,Integer,String>{
+        protected String doInBackground(String... params) {
+            ImageRecognizer recog = new ImageRecognizer();
+            recog.readImage("https://i5.walmartimages.ca/images/Large/580/6_r/875806_R.jpg");
+            FoodNutrition nutri = new FoodNutrition();
 
+            if (recog.getTopResult() != null) {
+                Map<String, Float> nutrition_list = nutri.getNutrition(recog.getTopResult());
+                Log.d("ImageTest",recog.getTopResult());
+                if (nutrition_list != null)
+                    Log.d("ImageTest", nutrition_list.toString());
+                else
+                    Log.d("ImageTest", "Food not found");
+            }else
+                Log.d("ImageTest","Image not found");
+
+            publishProgress(0);
+
+            return "Test complete";
+        }
     }
 
     @Override
