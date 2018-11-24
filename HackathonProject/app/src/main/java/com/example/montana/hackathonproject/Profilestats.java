@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
@@ -28,7 +30,6 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -37,7 +38,10 @@ import java.util.Date;
 public class Profilestats extends AppCompatActivity {
 
     private AnimationDrawable animation;
-    private ImageView mImageView;
+    String mCurrentPhotoPath;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    //private Camera camera = null;
+
 
     private CallbackManager callbackManager;
     private Button login_button;
@@ -132,6 +136,13 @@ public class Profilestats extends AppCompatActivity {
                         Log.d("FacebookLogin",exception.toString());
                     }
                 });
+        
+        //Workout Progress Bar
+        ProgressBar workoutbar = (ProgressBar) findViewById(R.id.workoutDoneBar);
+        int number = getIntent().getExtras().getInt("inttoadd");
+        workoutbar.incrementProgressBy(number);
+
+
 
     }
 
@@ -163,30 +174,36 @@ public class Profilestats extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-
+    //runs when camera button is pressed
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // will capture a picture when user presses button
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            onActivityResult(REQUEST_IMAGE_CAPTURE, RESULT_OK, takePictureIntent);
             File photoFile = null;
             try {
                 photoFile = createImageFile();
-                //galleryAddPic(photoFile);
+                Log.d("","creating temp file");
             } catch (IOException ex) {
-
+            }
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.montana.hackathonproject.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                Log.d("",photoURI.toString());
+                //startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         }
     }
 
-    String mCurrentPhotoPath;
-
+    //create the file for image
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/Camera/");
+        //File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -198,19 +215,11 @@ public class Profilestats extends AppCompatActivity {
         return image;
     }
 
-    //for saving to phone gallery, not used yet
-    private void galleryAddPic() {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(mCurrentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        this.sendBroadcast(mediaScanIntent);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     @Override

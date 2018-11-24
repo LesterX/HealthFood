@@ -1,5 +1,6 @@
 package com.example.montana.hackathonproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -39,6 +40,19 @@ public class WorkoutTab extends AppCompatActivity {
                 int pointsgained= (num*5) -2;
                 totalpoints.setText(pointsgained + "");
 
+
+            }
+        });
+
+        Button addprogressBtn = (Button) findViewById(R.id.addPointsButton);
+        addprogressBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView totalpoints=(TextView)findViewById(R.id.totalPointsTextView);
+                int num = Integer.parseInt(totalpoints.getText().toString());
+                Intent myIntent = new Intent(WorkoutTab.this, Profilestats.class);
+                myIntent.putExtra("inttoadd", num);
+                startActivity(myIntent);
 
             }
         });
