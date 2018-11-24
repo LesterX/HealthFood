@@ -132,7 +132,7 @@ public class Profilestats extends AppCompatActivity {
                         Log.d("FacebookLogin",exception.toString());
                     }
                 });
-        
+
     }
 
     @Override
