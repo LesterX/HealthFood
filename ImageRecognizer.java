@@ -30,12 +30,15 @@ public class ImageRecognizer
 	private Concept con;
 	private Map<String,Float> result_list;
 	
+	//Constructor
+	//Key is from Clarifai website user key
 	public ImageRecognizer(String key)
 	{
 		client = new ClarifaiBuilder("22612b503c5b4276ad23b53af545518a").buildSync();
 		result_list = new HashMap<String,Float>();
 	}
 	
+	//Read images from url
 	public void readImage(String url)
 	{
 		Model<Concept> generalModel = client.getDefaultModels().foodModel();
@@ -53,6 +56,7 @@ public class ImageRecognizer
 		}
 	}
 	
+	//Return the possible results with the probabilities
 	public Map<String,Float> getResults()
 	{
 		if (result_list.size() == 0)
@@ -60,33 +64,4 @@ public class ImageRecognizer
 		else
 			return result_list;
 	}
-	
-	/*
-	public static void main(String[] args) throws UnsupportedEncodingException, FileNotFoundException, IOException
-	{
-		final ClarifaiClient client = new ClarifaiBuilder("22612b503c5b4276ad23b53af545518a").buildSync();
-		
-
-		Model<Concept> generalModel = client.getDefaultModels().generalModel();
-		
-		PredictRequest<Concept> request = generalModel.predict().withInputs(
-		        ClarifaiInput.forImage("https://amp.businessinsider.com/images/5a7aea7b7101ad094069a41b-750-563.png"));
-		List<ClarifaiOutput<Concept>> result = request.executeSync().get();
-		
-		for (ClarifaiOutput<Concept> data : result)
-		{
-			try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-		              new FileOutputStream("output.txt"), "utf-8"))) {
-				for (int i = 0; i < data.data().size(); i ++)
-				{
-					Concept con = data.data().get(i);
-					System.out.println(con.name());
-				}
-			}
-			
-			System.out.println(data.getClass().getName());
-		}
-		
-	}
-	*/
 }
