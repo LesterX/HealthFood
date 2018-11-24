@@ -23,8 +23,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-<!--        app:srcCompat="@mipmap/ic_launcher_round"-->
-        <!--tools:srcCompat="@tools:sample/avatars[12]"-->
+    <!--        app:srcCompat="@mipmap/ic_launcher_round"-->
+    <!--tools:srcCompat="@tools:sample/avatars[12]"-->
 
     <ProgressBar
         android:id="@+id/foodProgressBar"
@@ -36,11 +36,9 @@
         android:layout_marginTop="248dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="158dp"
         android:max="@android:integer/status_bar_notification_info_maxnum"
         android:progress="@android:integer/config_mediumAnimTime"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/button_login_page"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,14 +72,14 @@
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
         android:clickable="true"
+        android:focusable="true"
         android:visibility="visible"
         app:backgroundTint="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/foodProgressBar"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:focusable="true" />
+        app:srcCompat="@android:drawable/ic_input_add" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addWorkoutButton"
@@ -91,13 +89,13 @@
         android:layout_marginLeft="32dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
+        android:focusable="true"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/workoutProgressBar"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:focusable="true" />
+        app:srcCompat="@android:drawable/ic_input_add" />
 
     <TextView
         android:id="@+id/foodTextView"
@@ -120,13 +118,10 @@
         app:layout_constraintTop_toBottomOf="@+id/avatarImageView"
         tools:text="Food Intake" />
 
-    <Button
-        android:id="@+id/button_login_page"
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
-        android:onClick="loginActivity"
-        android:text="Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
