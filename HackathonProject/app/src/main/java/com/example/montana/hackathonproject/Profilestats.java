@@ -43,11 +43,13 @@ public class Profilestats extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     //private Camera camera = null;
 
+/*
 
     private CallbackManager callbackManager;
     private Button login_button;
     private ProfileTracker profileTracker;
     private TextView text_name;
+*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +70,7 @@ public class Profilestats extends AppCompatActivity {
                 dispatchTakePictureIntent();
             }
         });
-        text_name = findViewById(R.id.text_name);
+        //text_name = findViewById(R.id.text_name);
         //Add workout Button
         FloatingActionButton addBtn= (FloatingActionButton) findViewById(R.id.addWorkoutButton);
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +80,7 @@ public class Profilestats extends AppCompatActivity {
                 startActivity(switchtoworkout);
             }
         });
-        //Facebook Login
+        /*//Facebook Login
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
 
@@ -127,7 +129,7 @@ public class Profilestats extends AppCompatActivity {
                         Log.d("FacebookLogin",exception.toString());
                     }
                 });
-
+*/
 
         //new testTask().execute(".");
 
@@ -275,17 +277,6 @@ public class Profilestats extends AppCompatActivity {
         return image;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
 
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        profileTracker.stopTracking();
-    }
 
 }
