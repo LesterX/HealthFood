@@ -74,6 +74,11 @@
             android:label="@string/title_activity_workout_tab"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <meta-data
+            android:name="com.google.android.API_KEY"
+            android:value="AIzaSyDFkGeCpTE62JuisOD-KDZdkVXeeRtAhOY" />
+
+        <activity android:name=".Nutrition"></activity>
     </application>
 
 </manifest>

@@ -16,20 +16,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.Profile;
-import com.facebook.ProfileTracker;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,6 +30,8 @@ public class Profilestats extends AppCompatActivity {
     private AnimationDrawable animation;
     String mCurrentPhotoPath;
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    static int calorieIntake=200;
+    static int workoutpoints=1;
     //private Camera camera = null;
 
 /*
@@ -136,11 +127,9 @@ public class Profilestats extends AppCompatActivity {
         //Workout Progress Bar
         TextView status = (TextView)findViewById(R.id.workoutProgressView);
         ProgressBar workoutbar = (ProgressBar) findViewById(R.id.workoutDoneBar);
-        int inital= workoutbar.getProgress();
-        int number = getIntent().getExtras().getInt("inttoadd");
-        int result = inital + number;
-        workoutbar.setProgress(result);
-        status.setText(result + "/" + workoutbar.getMax());
+        workoutpoints+=getIntent().getExtras().getInt("inttoadd");
+        workoutbar.setProgress(workoutpoints);
+        status.setText(workoutpoints+ "/" + workoutbar.getMax());
 
 
 
@@ -149,8 +138,12 @@ public class Profilestats extends AppCompatActivity {
         //Food Progress Bar
         TextView status1 = (TextView)findViewById(R.id.foodProgressView);
         ProgressBar foodbar = (ProgressBar) findViewById(R.id.foodIntakeBar);
-        int number1=foodbar.getProgress();
-        status1.setText(number1+"/"+foodbar.getMax());
+        calorieIntake+= Math.round(getIntent().getExtras().getFloat("caloriesAdd"));
+        status1.setText(calorieIntake+"/"+foodbar.getMax());
+        Log.d("MYBUG",String.valueOf(calorieIntake));
+        foodbar.incrementProgressBy(calorieIntake);
+
+
 
         //Happiness Level Bar
         ProgressBar happylvl = (ProgressBar)findViewById(R.id.happyLevel);
@@ -186,34 +179,6 @@ public class Profilestats extends AppCompatActivity {
 
 
     }
-
-
-
-/*
-    //Testing task
-    private class testTask extends AsyncTask<String,Integer,String>{
-        protected String doInBackground(String... params) {
-            ImageRecognizer recog = new ImageRecognizer();
-            recog.readImage("https://i5.walmartimages.ca/images/Large/580/6_r/875806_R.jpg");
-            //FoodNutrition nutri = new FoodNutrition();
-
-            *//*
-            if (recog.getTopResult() != null) {
-                Map<String, Float> nutrition_list = nutri.getNutrition(recog.getTopResult());
-                Log.d("ImageTest",recog.getTopResult());
-                if (nutrition_list != null)
-                    Log.d("ImageTest", nutrition_list.toString());
-                else
-                    Log.d("ImageTest", "Food not found");
-            }else
-                Log.d("ImageTest","Image not found");
-            *//*
-
-            publishProgress(0);
-
-            return "Test complete";
-        }
-    }*/
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -285,5 +250,8 @@ public class Profilestats extends AppCompatActivity {
     }
 
 
-
+    public void enterFoodText(View v){
+        Intent intent = new Intent(this,Nutrition.class);
+        startActivity(intent);
+    }
 }
