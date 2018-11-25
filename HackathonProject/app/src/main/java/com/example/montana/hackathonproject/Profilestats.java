@@ -3,11 +3,11 @@ package com.example.montana.hackathonproject;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -29,6 +29,7 @@ import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -63,10 +64,12 @@ public class Profilestats extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setActioI feel("Action", null).show();*/
+
             }
         });
+
 
         FloatingActionButton camBtn = (FloatingActionButton) findViewById(R.id.addFoodButton);
         camBtn.setOnClickListener(new View.OnClickListener() {
@@ -135,11 +138,15 @@ public class Profilestats extends AppCompatActivity {
                     }
                 });
 
+
+        new testTask().execute(".");
+
         //Workout Progress Bar
         TextView status = (TextView)findViewById(R.id.workoutProgressView);
         ProgressBar workoutbar = (ProgressBar) findViewById(R.id.workoutDoneBar);
         int number = getIntent().getExtras().getInt("inttoadd");
         workoutbar.incrementProgressBy(number);
+
         status.setText(number+"/"+workoutbar.getMax());
 
         //Food Progress Bar
@@ -168,7 +175,34 @@ public class Profilestats extends AppCompatActivity {
             happylvl.setProgress(80);
         }
 
+    }
 
+
+
+
+    //Testing task
+    private class testTask extends AsyncTask<String,Integer,String>{
+        protected String doInBackground(String... params) {
+            ImageRecognizer recog = new ImageRecognizer();
+            recog.readImage("https://i5.walmartimages.ca/images/Large/580/6_r/875806_R.jpg");
+            //FoodNutrition nutri = new FoodNutrition();
+
+            /*
+            if (recog.getTopResult() != null) {
+                Map<String, Float> nutrition_list = nutri.getNutrition(recog.getTopResult());
+                Log.d("ImageTest",recog.getTopResult());
+                if (nutrition_list != null)
+                    Log.d("ImageTest", nutrition_list.toString());
+                else
+                    Log.d("ImageTest", "Food not found");
+            }else
+                Log.d("ImageTest","Image not found");
+            */
+
+            publishProgress(0);
+
+            return "Test complete";
+        }
     }
 
     @Override
@@ -235,7 +269,7 @@ public class Profilestats extends AppCompatActivity {
                 storageDir      /* directory */
         );
 
-        // Save a file: path for use with ACTION_VIEW intents
+        // Save a file: path ffree character spriteor use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
