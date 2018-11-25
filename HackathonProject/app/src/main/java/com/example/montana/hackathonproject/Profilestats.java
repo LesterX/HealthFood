@@ -170,9 +170,13 @@ public class Profilestats extends AppCompatActivity {
             Hungry=true;
             happylvl.setProgress(60);
         }
-        else {
+        else if ((foodbar.getProgress()<=1500 && workoutbar.getProgress()>=29)) {
             Happy=true;
             happylvl.setProgress(80);
+        }
+        else{
+            Happy=true;
+            happylvl.setProgress(100);
         }
 
     }

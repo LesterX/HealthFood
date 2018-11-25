@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.clarifai.clarifai-api2:core:2.6.0'
+    //implementation 'com.clarifai.clarifai-api2:core:2.6.0'
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
