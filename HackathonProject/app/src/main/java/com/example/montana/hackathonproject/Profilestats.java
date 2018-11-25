@@ -3,11 +3,11 @@ package com.example.montana.hackathonproject;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -138,13 +138,40 @@ public class Profilestats extends AppCompatActivity {
                     }
                 });
 
+        
+        new testTask().execute(".");
+
         //Workout Progress Bar
         ProgressBar workoutbar = (ProgressBar) findViewById(R.id.workoutDoneBar);
         int number = getIntent().getExtras().getInt("inttoadd");
         workoutbar.incrementProgressBy(number);
+    }
 
 
 
+    //Testing task
+    private class testTask extends AsyncTask<String,Integer,String>{
+        protected String doInBackground(String... params) {
+            ImageRecognizer recog = new ImageRecognizer();
+            recog.readImage("https://i5.walmartimages.ca/images/Large/580/6_r/875806_R.jpg");
+            //FoodNutrition nutri = new FoodNutrition();
+
+            /*
+            if (recog.getTopResult() != null) {
+                Map<String, Float> nutrition_list = nutri.getNutrition(recog.getTopResult());
+                Log.d("ImageTest",recog.getTopResult());
+                if (nutrition_list != null)
+                    Log.d("ImageTest", nutrition_list.toString());
+                else
+                    Log.d("ImageTest", "Food not found");
+            }else
+                Log.d("ImageTest","Image not found");
+            */
+
+            publishProgress(0);
+
+            return "Test complete";
+        }
     }
 
     @Override
