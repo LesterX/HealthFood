@@ -150,11 +150,12 @@ public class Profilestats extends AppCompatActivity {
     //Testing task
     private class testTask extends AsyncTask<String,Integer,String>{
         protected String doInBackground(String... params) {
+            /*
             ImageRecognizer recog = new ImageRecognizer();
             recog.readImage("https://i5.walmartimages.ca/images/Large/580/6_r/875806_R.jpg");
-            //FoodNutrition nutri = new FoodNutrition();
+            FoodNutrition nutri = new FoodNutrition();
 
-            /*
+
             if (recog.getTopResult() != null) {
                 Map<String, Float> nutrition_list = nutri.getNutrition(recog.getTopResult());
                 Log.d("ImageTest",recog.getTopResult());
@@ -165,6 +166,12 @@ public class Profilestats extends AppCompatActivity {
             }else
                 Log.d("ImageTest","Image not found");
             */
+
+            CloudVision cloudVision = new CloudVision();
+            Uri uri = Uri.parse("android.resource://com.example.montana.hackathonproject/drawable/strawberry.jpg");
+            String path = uri.getPath();
+
+            cloudVision.readImage(path);
 
             publishProgress(0);
 
