@@ -48,7 +48,7 @@ public class Profilestats extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ImageView imView = (ImageView) findViewById(R.id.avatarImageView);
-        //imView.setBackgroundResource(R.drawable.animationhappy);
+        imView.setBackgroundResource(R.drawable.animationhappy);
         animation = (AnimationDrawable) imView.getBackground();
 
 
@@ -133,8 +133,12 @@ public class Profilestats extends AppCompatActivity {
         //Food Progress Bar
         TextView status1 = (TextView)findViewById(R.id.foodProgressView);
         ProgressBar foodbar = (ProgressBar) findViewById(R.id.foodIntakeBar);
-        int number1=foodbar.getProgress();
+        int number1= Math.round(getIntent().getExtras().getFloat("caloriesAdd"));
         status1.setText(number1+"/"+foodbar.getMax());
+        Log.d("MYBUG",String.valueOf(number1));
+        foodbar.incrementProgressBy(number1);
+
+
 
         //Happiness Level Bar
         ProgressBar happylvl = (ProgressBar)findViewById(R.id.happyLevel);
@@ -146,7 +150,7 @@ public class Profilestats extends AppCompatActivity {
         if (foodbar.getProgress()<=1000 && workoutbar.getProgress()<=29){
             Sick=true;
             vw = (ImageView) findViewById(R.id.avatarImageView);
-            //vw.setBackgroundResource(R.drawable.animationsad);
+            vw.setBackgroundResource(R.drawable.animationsad);
             happylvl.setProgress(20);
             happylvl.setProgressTintList(ColorStateList.valueOf(Color.RED));
 
@@ -154,14 +158,14 @@ public class Profilestats extends AppCompatActivity {
         else if (foodbar.getProgress()<=1000 && workoutbar.getProgress()<=38){
             Hungry=true;
             vw = (ImageView) findViewById(R.id.avatarImageView);
-            //vw.setBackgroundResource(R.drawable.animationhungry);
+            vw.setBackgroundResource(R.drawable.animationhungry);
             happylvl.setProgress(60);
             happylvl.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
         }
         else {
             Happy=true;
             vw = (ImageView) findViewById(R.id.avatarImageView);
-            //vw.setBackgroundResource(R.drawable.animationhappy);
+            vw.setBackgroundResource(R.drawable.animationhappy);
             happylvl.setProgress(80);
             happylvl.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
         }

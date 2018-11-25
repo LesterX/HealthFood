@@ -1,13 +1,14 @@
 package com.example.montana.hackathonproject;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class Nutrition extends AppCompatActivity {
 
     public void calculate(View v) {
 
-
+        new NutritionRead().execute(".");
     }
 
 
@@ -56,5 +57,19 @@ public class Nutrition extends AppCompatActivity {
                 return "Test complete";
         }
 
+    }
+
+    public void recordCalories(View v){
+
+        TextView totalCalories=(TextView)findViewById(R.id.text_result_calories);
+        if (totalCalories.getText() == null)
+            return;
+
+        Float num = Float.parseFloat(totalCalories.getText().toString());
+        Log.d("MYBUG",String.valueOf(num));
+
+        Intent myIntent = new Intent(Nutrition.this, Profilestats.class);
+        myIntent.putExtra("caloriesAdd", num);
+        startActivity(myIntent);
     }
 }
