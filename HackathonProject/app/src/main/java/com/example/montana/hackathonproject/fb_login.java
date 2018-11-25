@@ -69,6 +69,8 @@ public class fb_login extends AppCompatActivity {
                             text_name.setVisibility(View.INVISIBLE);
                     }
 
+
+
                     @Override
                     public void onCancel() {
                         Log.d("FacebookLogin","Logged In Cancelled");

@@ -16,20 +16,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.Profile;
-import com.facebook.ProfileTracker;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
 
 import java.io.File;
 import java.io.IOException;
@@ -162,7 +151,7 @@ public class Profilestats extends AppCompatActivity {
             happylvl.setProgressTintList(ColorStateList.valueOf(Color.RED));
 
         }
-        else if (foodbar.getProgress()<=1000 && workoutbar.getProgress()>=29){
+        else if (foodbar.getProgress()<=1000 && workoutbar.getProgress()<=38){
             Hungry=true;
             vw = (ImageView) findViewById(R.id.avatarImageView);
             //vw.setBackgroundResource(R.drawable.animationhungry);
@@ -176,7 +165,9 @@ public class Profilestats extends AppCompatActivity {
             happylvl.setProgress(80);
             happylvl.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
         }
+
         animation = (AnimationDrawable) vw.getBackground();
+
 
     }
 
