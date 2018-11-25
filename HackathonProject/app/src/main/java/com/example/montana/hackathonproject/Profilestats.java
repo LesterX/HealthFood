@@ -30,6 +30,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -136,7 +137,7 @@ public class Profilestats extends AppCompatActivity {
                         Log.d("FacebookLogin",exception.toString());
                     }
                 });
-        
+
         //Workout Progress Bar
         ProgressBar workoutbar = (ProgressBar) findViewById(R.id.workoutDoneBar);
         int number = getIntent().getExtras().getInt("inttoadd");
