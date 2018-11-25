@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
@@ -63,10 +63,12 @@ public class Profilestats extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setActioI feel("Action", null).show();*/
+
             }
         });
+
 
         FloatingActionButton camBtn = (FloatingActionButton) findViewById(R.id.addFoodButton);
         camBtn.setOnClickListener(new View.OnClickListener() {
@@ -134,8 +136,16 @@ public class Profilestats extends AppCompatActivity {
                         Log.d("FacebookLogin",exception.toString());
                     }
                 });
+        
         new testTask().execute(".");
+
+        //Workout Progress Bar
+        ProgressBar workoutbar = (ProgressBar) findViewById(R.id.workoutDoneBar);
+        int number = getIntent().getExtras().getInt("inttoadd");
+        workoutbar.incrementProgressBy(number);
     }
+
+
 
     //Testing task
     private class testTask extends AsyncTask<String,Integer,String>{
@@ -226,7 +236,7 @@ public class Profilestats extends AppCompatActivity {
                 storageDir      /* directory */
         );
 
-        // Save a file: path for use with ACTION_VIEW intents
+        // Save a file: path ffree character spriteor use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
