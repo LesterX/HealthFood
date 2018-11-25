@@ -136,9 +136,37 @@ public class Profilestats extends AppCompatActivity {
                 });
 
         //Workout Progress Bar
+        TextView status = (TextView)findViewById(R.id.workoutProgressView);
         ProgressBar workoutbar = (ProgressBar) findViewById(R.id.workoutDoneBar);
         int number = getIntent().getExtras().getInt("inttoadd");
         workoutbar.incrementProgressBy(number);
+        status.setText(number+"/"+workoutbar.getMax());
+
+        //Food Progress Bar
+        TextView status1 = (TextView)findViewById(R.id.foodProgressView);
+        ProgressBar foodbar = (ProgressBar) findViewById(R.id.foodIntakeBar);
+        int number1=foodbar.getProgress();
+        status1.setText(number1+"/"+foodbar.getMax());
+
+        //Happiness Level Bar
+        ProgressBar happylvl = (ProgressBar)findViewById(R.id.happyLevel);
+        Boolean Happy =false;
+        Boolean Sick= false;
+        Boolean Hungry=false;
+
+        if (foodbar.getProgress()<=1000 && workoutbar.getProgress()<=29){
+            Sick=true;
+            happylvl.setProgress(20);
+
+        }
+        else if (foodbar.getProgress()<=1000 && workoutbar.getProgress()>=29){
+            Hungry=true;
+            happylvl.setProgress(60);
+        }
+        else {
+            Happy=true;
+            happylvl.setProgress(80);
+        }
 
 
     }
