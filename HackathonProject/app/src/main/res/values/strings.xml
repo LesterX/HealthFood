@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HackathonProject</string>
+    <string name="app_name">Super Fit</string>
     <string name="textview1">Food Intake</string>
     <string name="textview2">Workouts Done</string>
     <string name="textview3">Add Workout</string>
@@ -8,5 +8,5 @@
     <string name="title_activity_login">Login</string>
     <string name="facebook_app_id">1929881773986811</string>
     <string name="fb_login_protocol_scheme">fb1929881773986811</string>
-    <string name="title_activity_workout_tab">WorkoutTab</string>
+    <string name="title_activity_workout_tab">Super Fit</string>
 </resources>

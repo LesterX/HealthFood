@@ -136,10 +136,15 @@ public class Profilestats extends AppCompatActivity {
         //Workout Progress Bar
         TextView status = (TextView)findViewById(R.id.workoutProgressView);
         ProgressBar workoutbar = (ProgressBar) findViewById(R.id.workoutDoneBar);
+        int inital= workoutbar.getProgress();
         int number = getIntent().getExtras().getInt("inttoadd");
-        workoutbar.incrementProgressBy(number);
+        int result = inital + number;
+        workoutbar.setProgress(result);
+        status.setText(result + "/" + workoutbar.getMax());
 
-        status.setText(number+"/"+workoutbar.getMax());
+
+
+
 
         //Food Progress Bar
         TextView status1 = (TextView)findViewById(R.id.foodProgressView);
