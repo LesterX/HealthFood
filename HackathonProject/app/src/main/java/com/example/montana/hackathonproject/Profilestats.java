@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -33,12 +34,14 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 public class Profilestats extends AppCompatActivity {
 
     private AnimationDrawable animation;
-    private ImageView mImageView;
+    String mCurrentPhotoPath;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    //private Camera camera = null;
+
 
     private CallbackManager callbackManager;
     private Button login_button;
@@ -73,7 +76,15 @@ public class Profilestats extends AppCompatActivity {
             }
         });
         text_name = findViewById(R.id.text_name);
-
+        //Add workout Button
+        FloatingActionButton addBtn= (FloatingActionButton) findViewById(R.id.addWorkoutButton);
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent switchtoworkout = new Intent(getApplicationContext(),WorkoutTab.class);
+                startActivity(switchtoworkout);
+            }
+        });
         //Facebook Login
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
@@ -131,8 +142,9 @@ public class Profilestats extends AppCompatActivity {
         protected String doInBackground(String... params) {
             ImageRecognizer recog = new ImageRecognizer();
             recog.readImage("https://i5.walmartimages.ca/images/Large/580/6_r/875806_R.jpg");
-            FoodNutrition nutri = new FoodNutrition();
+            //FoodNutrition nutri = new FoodNutrition();
 
+            /*
             if (recog.getTopResult() != null) {
                 Map<String, Float> nutrition_list = nutri.getNutrition(recog.getTopResult());
                 Log.d("ImageTest",recog.getTopResult());
@@ -142,6 +154,7 @@ public class Profilestats extends AppCompatActivity {
                     Log.d("ImageTest", "Food not found");
             }else
                 Log.d("ImageTest","Image not found");
+            */
 
             publishProgress(0);
 
@@ -177,30 +190,36 @@ public class Profilestats extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-
+    //runs when camera button is pressed
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // will capture a picture when user presses button
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            onActivityResult(REQUEST_IMAGE_CAPTURE, RESULT_OK, takePictureIntent);
             File photoFile = null;
             try {
                 photoFile = createImageFile();
-                //galleryAddPic(photoFile);
+                Log.d("","creating temp file");
             } catch (IOException ex) {
-
+            }
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.montana.hackathonproject.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                Log.d("",photoURI.toString());
+                //startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         }
     }
 
-    String mCurrentPhotoPath;
-
+    //create the file for image
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/Camera/");
+        //File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -212,19 +231,11 @@ public class Profilestats extends AppCompatActivity {
         return image;
     }
 
-    //for saving to phone gallery, not used yet
-    private void galleryAddPic() {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(mCurrentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        this.sendBroadcast(mediaScanIntent);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     @Override
