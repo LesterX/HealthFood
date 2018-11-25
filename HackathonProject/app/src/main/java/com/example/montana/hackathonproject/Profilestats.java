@@ -1,9 +1,10 @@
 package com.example.montana.hackathonproject;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -30,7 +31,6 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -43,11 +43,13 @@ public class Profilestats extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     //private Camera camera = null;
 
+/*
 
     private CallbackManager callbackManager;
     private Button login_button;
     private ProfileTracker profileTracker;
     private TextView text_name;
+*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,18 +59,8 @@ public class Profilestats extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ImageView imView = (ImageView) findViewById(R.id.avatarImageView);
-        imView.setBackgroundResource(R.drawable.animation);
+        imView.setBackgroundResource(R.drawable.animationhappy);
         animation = (AnimationDrawable) imView.getBackground();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addWorkoutButton);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setActioI feel("Action", null).show();*/
-
-            }
-        });
 
 
         FloatingActionButton camBtn = (FloatingActionButton) findViewById(R.id.addFoodButton);
@@ -78,7 +70,7 @@ public class Profilestats extends AppCompatActivity {
                 dispatchTakePictureIntent();
             }
         });
-        text_name = findViewById(R.id.text_name);
+        //text_name = findViewById(R.id.text_name);
         //Add workout Button
         FloatingActionButton addBtn= (FloatingActionButton) findViewById(R.id.addWorkoutButton);
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +80,7 @@ public class Profilestats extends AppCompatActivity {
                 startActivity(switchtoworkout);
             }
         });
-        //Facebook Login
+        /*//Facebook Login
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
 
@@ -137,9 +129,9 @@ public class Profilestats extends AppCompatActivity {
                         Log.d("FacebookLogin",exception.toString());
                     }
                 });
+*/
 
-
-        new testTask().execute(".");
+        //new testTask().execute(".");
 
         //Workout Progress Bar
         TextView status = (TextView)findViewById(R.id.workoutProgressView);
@@ -160,30 +152,39 @@ public class Profilestats extends AppCompatActivity {
         Boolean Happy =false;
         Boolean Sick= false;
         Boolean Hungry=false;
+        ImageView vw;
 
         if (foodbar.getProgress()<=1000 && workoutbar.getProgress()<=29){
             Sick=true;
+            vw = (ImageView) findViewById(R.id.avatarImageView);
+            vw.setBackgroundResource(R.drawable.animationsad);
             happylvl.setProgress(20);
+            happylvl.setProgressTintList(ColorStateList.valueOf(Color.RED));
 
         }
-        else if (foodbar.getProgress()<=1000 && workoutbar.getProgress()>=29){
+        else if (foodbar.getProgress()<=1000 && workoutbar.getProgress()<=38){
             Hungry=true;
+            vw = (ImageView) findViewById(R.id.avatarImageView);
+            vw.setBackgroundResource(R.drawable.animationhungry);
             happylvl.setProgress(60);
+            happylvl.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
         }
-        else if ((foodbar.getProgress()<=1500 && workoutbar.getProgress()>=29)) {
+        else {
             Happy=true;
+            vw = (ImageView) findViewById(R.id.avatarImageView);
+            vw.setBackgroundResource(R.drawable.animationhappy);
             happylvl.setProgress(80);
+            happylvl.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
         }
-        else{
-            Happy=true;
-            happylvl.setProgress(100);
-        }
+
+        animation = (AnimationDrawable) vw.getBackground();
+
 
     }
 
 
 
-
+/*
     //Testing task
     private class testTask extends AsyncTask<String,Integer,String>{
         protected String doInBackground(String... params) {
@@ -191,7 +192,7 @@ public class Profilestats extends AppCompatActivity {
             recog.readImage("https://i5.walmartimages.ca/images/Large/580/6_r/875806_R.jpg");
             //FoodNutrition nutri = new FoodNutrition();
 
-            /*
+            *//*
             if (recog.getTopResult() != null) {
                 Map<String, Float> nutrition_list = nutri.getNutrition(recog.getTopResult());
                 Log.d("ImageTest",recog.getTopResult());
@@ -201,13 +202,13 @@ public class Profilestats extends AppCompatActivity {
                     Log.d("ImageTest", "Food not found");
             }else
                 Log.d("ImageTest","Image not found");
-            */
+            *//*
 
             publishProgress(0);
 
             return "Test complete";
         }
-    }
+    }*/
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -278,17 +279,6 @@ public class Profilestats extends AppCompatActivity {
         return image;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
 
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        profileTracker.stopTracking();
-    }
 
 }
